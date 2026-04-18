@@ -30,7 +30,27 @@
         <div class="col-span-1">
             <h1 class="text-4xl">Add a Book</h1>
 
-            {{ form }}
+            <form id="book-form">
+                {% csrf_token %}
+
+                <div id="form-errors" class="text-red-500">
+                    {{ form.non_field_errors }}
+                </div>
+
+                <fieldset class="field">
+                    <label class="label text-lg" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                    {{ form.name }}
+                </fieldset>
+
+                <fieldset class="field">
+                    <label class="label text-lg" for="{{ form.genre.id_for_label }}">{{ form.genre.label }}</label>
+                    {{ form.genre }}
+                </fieldset>
+
+            </form>
+            <button class="btn btn-success mt-4">
+                Submit
+            </button>
         </div>
     </div>
 </div>
