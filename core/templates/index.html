@@ -5,6 +5,25 @@
 <div class="flex justify-center items-center">
     <div class="bg-white p-6 rounded-lg w-full lg:w-3/4">
         <h1 class="text-4xl">Book Tracker</h1>
+
+        <table class="table table-zebra">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Genre</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for book in books %}
+                <tr>
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.genre }}</td>
+                </tr>
+              {% empty %}
+                  <p>There is no books yet</p>
+              {% endfor %}
+            </tbody>
+          </table>
     </div>
 </div>
 {% endblock %}
