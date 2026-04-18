@@ -8,9 +8,9 @@ class User(AbstractUser):
 
 class Book(models.Model):
     class GenreChoices(models.TextChoices):
-        FICTION = 'Fiction',
-        MYSTERY = 'Mystery',
-        ROMANCE = 'Romance',
+        FICTION = 'Fiction'
+        MYSTERY = 'Mystery'
+        ROMANCE = 'Romance'
 
     name = models.CharField(max_length=128)
     genre = models.CharField(max_length=24, choices=GenreChoices.choices)
