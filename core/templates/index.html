@@ -8,7 +8,7 @@
         <div class="col-span-3">
             <h1 class="text-4xl">Book Tracker</h1>
 
-            <table class="table table-zebra">
+            <table id="book-table" class="table table-zebra">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -17,10 +17,7 @@
                 </thead>
                 <tbody>
                   {% for book in books %}
-                    <tr>
-                        <td>{{ book.name }}</td>
-                        <td>{{ book.genre }}</td>
-                    </tr>
+                      {% include 'partials/book-row.html' %}
                   {% empty %}
                       <p>There is no books yet</p>
                   {% endfor %}
@@ -30,7 +27,11 @@
         <div class="col-span-1">
             <h1 class="text-4xl">Add a Book</h1>
 
-            <form id="book-form">
+            <form id="book-form"
+                  hx-post="{% url 'index' %}"
+                  hx-target="#book-table > tbody"
+                  hx-swap="afterbegin"
+                    >
                 {% csrf_token %}
 
                 <div id="form-errors" class="text-red-500">
@@ -47,10 +48,11 @@
                     {{ form.genre }}
                 </fieldset>
 
+                <button class="btn btn-success mt-4">
+                    Submit
+                </button>
+
             </form>
-            <button class="btn btn-success mt-4">
-                Submit
-            </button>
         </div>
     </div>
 </div>
