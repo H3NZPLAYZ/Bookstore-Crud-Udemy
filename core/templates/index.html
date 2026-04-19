@@ -15,7 +15,10 @@
                     <th>Genre</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody hx-on::after-settle="
+                            this.firstChild.style.background='lightgreen';
+                            setTimeout(() => this.firstChild.style.background='white', 2000);
+                            ">
                   {% for book in books %}
                       {% include 'partials/book-row.html' %}
                   {% empty %}
@@ -31,6 +34,7 @@
                   hx-post="{% url 'index' %}"
                   hx-target="#book-table > tbody"
                   hx-swap="afterbegin"
+                  hx-on::after-request="this.reset()"
                     >
                 {% csrf_token %}
 
