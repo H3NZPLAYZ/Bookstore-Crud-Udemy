@@ -18,10 +18,15 @@ let clearForm = () => {
     removeEmptyMessage()
 }
 
-
 let removeEmptyMessage = () => {
     let emptyRow = document.querySelector('.empty-message');
     if (emptyRow) {
         emptyRow.remove();
     }
+}
+
+let fadeOutAndRemove = (tr) => {
+    tr.style.transition = 'opacity 1s ease'
+    tr.style.opacity = 0
+    setTimeout(() => tr.remove(), 1000)
 }
