@@ -1,6 +1,8 @@
+from os import name
+
 from allauth.headless.internal.restkit import response
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, QueryDict
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_http_methods
 
@@ -45,3 +47,31 @@ def delete_book(request, pk):
     response = HttpResponse(status=204)
     response['HX-Trigger'] = 'book-deleted'
     return response
+
+@login_required
+def book_detail(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+
+    if request.method == 'PUT':
+        put_data = QueryDict(request.body)
+        form = BookForm(
+            put_data,
+            user=request.user,
+            initial = {'name': book.name,'genre': book.genre}
+        )
+        if form.is_valid():
+            book.name = form.cleaned_data['name']
+            book.genre = form.cleaned_data['genre']
+            book.save()
+        else:
+            context = {'form': form, 'book': book}
+            response = render(request, 'partials/book-update-form.html', context)
+            response['HX-Retarget'] = '#book-form'
+            response['HX-Reswap'] = 'outerHTML'
+            return response
+
+    context = {
+        'book': book,
+        'form': BookForm(initial={'name': book.name,'genre': book.genre}),
+    }
+    return render(request,'book-detail.html',context)
