@@ -6,8 +6,22 @@
                 hx-delete="{% url 'delete-book' book.pk  %}"
                 hx-target="closest tr"
                 hx-on:book-deleted="this.closest('tr').remove()"
-                hx-confirm="Are you sure you want to delete {{ book.name }}?">
-            Delete
-        </button>
+                hx-trigger='confirmed'
+                onClick="Swal.fire(
+                    {
+                        title: 'Confirm',
+                        text: 'Are you sure you want to delete {{ book.name }}?',
+                        icon: 'warning',
+                        showConfirmButton: true,
+                        confirmButtonText: 'Yes, delete it!',
+                        showCancelButton: true,
+                        showCloseButton: true,
+
+                    }
+                ).then((result) => {
+                    if (result.isConfirmed) {
+                        htmx.trigger(this,'confirmed');
+                    }
+                })">Delete</button>
     </td>
 </tr>
