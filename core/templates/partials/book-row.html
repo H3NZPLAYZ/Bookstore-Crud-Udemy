@@ -12,7 +12,12 @@
         <button class="btn btn-sm btn-error"
                 hx-delete="{% url 'delete-book' book.pk  %}"
                 hx-target="closest tr"
-                hx-on:book-deleted="fadeOutAndRemove(this.closest('tr'))"
+                hx-on:book-deleted="fadeOutAndRemove(this.closest('tr'));
+                gsap.to('#book-form', {rotation: 360, x: 100, y: 200, duration:1});
+                gsap.to('#book-form', {rotation: 0, x: 0, y: 0, duration:1, delay:1});
+                gsap.to('button', {scale:1.5, x:100, duration:1, delay:1});
+                gsap.to('button', {scale:0.5, x:0, duration:1, delay:2, rotate:-360});
+                gsap.to('button', {scale:1, x:0, duration:1, delay:3, rotate:0})"
                 hx-trigger='confirmed'
                 onClick="Swal.fire(
                     {
