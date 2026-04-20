@@ -9,6 +9,19 @@ let clearForm = () => {
     form.querySelectorAll('select').forEach(
     select => {
         select.selectedIndex = 0;
-        select.dispatchEvent(new Event('change'));
     });
+
+    document.querySelectorAll('.form-field-errors').forEach(errorField => {
+            errorField.replaceChildren();
+        })
+
+    removeEmptyMessage()
+}
+
+
+let removeEmptyMessage = () => {
+    let emptyRow = document.querySelector('.empty-message');
+    if (emptyRow) {
+        emptyRow.remove();
+    }
 }

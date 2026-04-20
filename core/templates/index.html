@@ -22,7 +22,11 @@
                   {% for book in books %}
                       {% include 'partials/book-row.html' %}
                   {% empty %}
-                      <p>There is no books yet</p>
+                      <tr>
+                          <td colspan="2" class="empty-message">
+                              <p>There is no books yet</p>
+                          </td>
+                      </tr>
                   {% endfor %}
                 </tbody>
               </table>
