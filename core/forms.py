@@ -9,7 +9,7 @@ class BookForm(forms.Form):
 
     genre = forms.ChoiceField(
         choices=Book.GenreChoices.choices,
-        widget=forms.Select(attrs={'class': 'select select-primary'}), )
+        widget=forms.Select(attrs={'class': 'select select-primary'}))
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)

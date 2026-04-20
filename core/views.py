@@ -22,8 +22,8 @@ def index(request):
         else:
             context = {'form': form}
             response = render(request, 'partials/book-form.html', context)
-            response['HX-Retarget'] = '#book-form'
-            response['HX-Reswap'] = 'outerHTML'
+            response['HX-Retarget'] = '#book-form-container'
+            response['HX-Reswap'] = 'innerHTML'
             return response
 
 

@@ -18,7 +18,7 @@
                 <tbody hx-on::after-settle="
                             this.firstChild.style.background='lightgreen';
                             setTimeout(() => this.firstChild.style.background='white', 2000);
-                            ">
+                            clearForm();">
                   {% for book in books %}
                       {% include 'partials/book-row.html' %}
                   {% empty %}
@@ -29,9 +29,9 @@
         </div>
         <div class="col-span-1">
             <h1 class="text-4xl">Add a Book</h1>
-
-            {% include 'partials/book-form.html' %}
-
+            <div id="book-form-container">
+                {% include 'partials/book-form.html' %}
+            </div>
         </div>
     </div>
 </div>
