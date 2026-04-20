@@ -5,7 +5,7 @@
 <div class="flex justify-center items-center" id="container">
     <div class="bg-white p-6 rounded-lg w-full lg:w-3/4 grid grid-cols-4 gap-4">
 
-        <div class="col-span-3">
+        <div class="col-span-4 lg:col-span-3 order-2 lg:order-1">
             <h1 class="text-4xl">Book Tracker</h1>
 
             <table id="book-table" class="table table-zebra">
@@ -32,7 +32,7 @@
                 </tbody>
               </table>
         </div>
-        <div class="col-span-1">
+        <div class="col-span-4 lg:col-span-1 order-1 lg:order-2">
             <h1 class="text-4xl">Add a Book</h1>
             <div id="book-form-container">
                 {% include 'partials/book-form.html' %}
