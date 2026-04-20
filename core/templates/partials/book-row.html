@@ -1,4 +1,12 @@
 <tr>
     <td>{{ book.name }}</td>
     <td>{{ book.genre }}</td>
+    <td>
+        <button class="btn btn-sm btn-error"
+                hx-delete="{% url 'delete-book' book.pk  %}"
+                hx-target="closest tr"
+                hx-on:book-deleted="this.closest('tr').remove()">
+            Delete
+        </button>
+    </td>
 </tr>
