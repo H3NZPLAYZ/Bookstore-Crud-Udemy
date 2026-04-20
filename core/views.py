@@ -1,3 +1,4 @@
+from allauth.headless.internal.restkit import response
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from core.forms import BookForm
@@ -9,7 +10,7 @@ from core.models import Book
 def index(request):
 
     if request.method == 'POST':
-        form = BookForm(request.POST)
+        form = BookForm(request.POST, user=request.user)
         if form.is_valid():
             name = form.cleaned_data['name']
             genre = form.cleaned_data['genre']
@@ -18,6 +19,12 @@ def index(request):
             if not request.user.books.filter(id=book.id).exists():
                 request.user.books.add(book)
                 return render(request, 'partials/book-row.html', {'book': book})
+        else:
+            context = {'form': form}
+            response = render(request, 'partials/book-form.html', context)
+            response['HX-Retarget'] = '#book-form'
+            response['HX-Reswap'] = 'outerHTML'
+            return response
 
 
     books = request.user.books.all()
