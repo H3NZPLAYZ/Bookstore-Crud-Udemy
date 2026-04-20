@@ -1,0 +1,23 @@
+<table id="book-table" class="table table-zebra">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Genre</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody hx-on::after-settle="
+                this.firstChild.style.background='lightgreen';
+                setTimeout(() => this.firstChild.style.background='white', 2000);
+                clearForm();">
+      {% for book in books %}
+          {% include 'partials/book-row.html' %}
+      {% empty %}
+          <tr>
+              <td colspan="2" class="empty-message">
+                  <p>There is no books yet</p>
+              </td>
+          </tr>
+      {% endfor %}
+    </tbody>
+</table>

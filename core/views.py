@@ -2,6 +2,7 @@ from os import name
 
 from allauth.headless.internal.restkit import response
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse, QueryDict
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_http_methods
@@ -82,3 +83,12 @@ def book_detail(request, pk):
 
 
     return render(request, template, context)
+
+@login_required
+def search_books(request):
+    query = request.GET.get('search', '')
+    books = request.user.books.filter(
+        Q(name__icontains=query) | Q(genre__icontains=query)
+
+    )
+    return render(request, 'partials/book-table.html', {'books': books})
